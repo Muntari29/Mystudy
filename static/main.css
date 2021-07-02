@@ -1,0 +1,69 @@
+header {
+    border-bottom: 1px solid white;
+    box-shadow: 0 0 5px black;
+    background-color: grey;
+}
+/* header */
+/* 헤더 왼쪽 오른쪽 나누기 */
+.clearfix::after {
+    content: "";
+    clear: both;
+    display: block;
+}
+
+.float--left {
+    float: left;
+}
+
+.float--right {
+    float: right;
+}
+
+
+.header-group {
+    height: 40px;
+}
+
+.category a {
+    width: 32px;
+    height: 32px;
+    color: white;
+    padding-right: 20px;
+    font-size: 18px;
+    text-decoration-line: none;
+}
+
+.category a:hover {
+    color: turquoise;
+}
+
+.main-menu {
+    display: flex;
+    margin: 10px;
+    padding-left: 50px;
+}
+
+.sign-box {
+    margin: 10px;
+}
+.btn a {
+    text-decoration-line: none;
+    color: black;
+}
+
+.btn a:hover{
+    color: cadetblue;
+}
+
+/* section */
+
+.title {
+    font-size: 100px;
+    text-align: center;
+    margin-top: 50px;
+}
+
+.input-data {
+    width: 500px;
+    margin: 50px auto;
+}
