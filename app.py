@@ -36,12 +36,12 @@ def sign_in():
     find_user = db.users.find_one({'userId' : user_id})
     
     if find_user is None:
-        return jsonify({'result' : 'Not coract'})
+        return jsonify({'result' : 'Not correct'})
 
     find_pw = find_user['userPw']
     if bcrypt.check_password_hash(find_pw, user_pw):
         return jsonify({'result' : 'success'})
-    return jsonify({'result': 'Not coract'})
+    return jsonify({'result': 'Not correct'})
 
 
 if __name__ == '__main__':
