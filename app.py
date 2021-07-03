@@ -26,6 +26,10 @@ def home():
 def board():
     return render_template('board.html')
 
+@app.route('/post_board')
+def post_board():
+    return render_template('post_board.html')
+
 @app.route('/signup')
 def page_signup():
     return render_template('signup.html')
@@ -63,13 +67,51 @@ def sign_in():
             "exp" : datetime.now() + timedelta(hours=2)
         }
         access_token = jwt.encode(payload, app.config['JWT_SECRET_KEY'], algorithm)
-        print(access_token)
         return jsonify({
             'result' : 'success',
             'access_token' : access_token
             })
     return jsonify({'result': 'Not correct'})
 
+@app.route('/board/post', methods = ["POST"])
+def board_post():
+    user = request.form['user']
+    title = request.form['title']
+    post_body = request.form['body']
+
+    #중복 여부 체크하지 않음
+    db.posts.insert_one({'userId' : user, 'postTitle' : title, 'postBody': post_body, 'time' : datetime.now().strftime('%Y/%m/%d %H:%M:%S'), 'like' : 0})
+    return jsonify({'result' : 'success'})
+
+@app.route('/board/show', methods = ["GET"])
+def show_post():
+    # post_list = list(db.posts.find({}, {'_id' : False}))
+    # post_list.sort(key=lambda x : x['like'], reverse=True)
+    # return jsonify({
+    #     'result' : 'success',
+    #     'post_list' : post_list
+    #     })
+    page = int(request.args.get('offset', 1))
+    per_page = int(request.args.get('limit', 5))
+    # post_list = list(db.posts.find({}, {'_id' : False}).skip(per_page * (page-1)).limit(per_page))
+    post_list = list(db.posts.find({}, {'_id' : False}).skip(page-1).limit(5))
+
+    print(f'off : {page}')
+    print(f'lim : {per_page}')
+    print(post_list)
+    return jsonify({
+        'result' : 'success',
+        'post_list' : post_list
+        })
+
+@app.route('/board/list/' , methods =["GET"])
+def _list():
+    page = int(request.args.get('offset', 1))
+    per_page = int(request.args.get('limit', 5))
+    a = list(db.posts.find({}).skip(per_page * (page-1)).limit(5))
+    
+    print('=============================================')
+    return jsonify({'result' : 'success', 'a' : a})
 
 if __name__ == '__main__':
     app.run('0.0.0.0', port=5000, debug=True)

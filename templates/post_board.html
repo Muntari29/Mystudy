@@ -23,30 +23,31 @@
             console.log('onload')
         })
 
-        function postUserSignin(){
-            let userId = $('#user-id').val();
-            let userPw = $('#user-password').val();
+        function addPost(){
+            let user = $('#post-user').val();
+            let title = $('#post-head').val();
+            let postBody = $('#post-body').val();
             $.ajax({
                 type: 'POST',
-                url: '/user/signin',
+                url: '/board/post',
                 data: {
-                    'userId' : userId,
-                    'userPw' : userPw
+                    'user' : user,
+                    'title' : title,
+                    'body' : postBody
                 },
                 success:function(response){
                     if (response['result'] == 'success'){
-                        localStorage.setItem('token', response['access_token'])
-                        alert('Storage_token_Save!!');
-                        // 로그인 완료 시 홈 화면으로 전환
-                        window.location.href = '/';
+                        alert('ADD_POST');
+                        window.location.href='/board';
                     } else {
-                        alert('no ok')
+                        alert('Eerror');
                     }
                 }
             })
         }
     </script>
 </head>
+
 <body>
     <header>
         <div class="header-group clearfix">
@@ -63,18 +64,19 @@
         </div>
     </header>
     <section class="title">
-        <p>여기는 로그인 화면입니다.</p>
+        <p>여기는 게시판 등록 화면입니당!!</p>
     </section>
-    <section class="input-data">
-        <label>
-            아이디
-        </label>
-        <input type="text" id="user-id">
-        <label>
-            비밀번호
-        </label>
-        <input type="password" id="user-password">
-        <button type="button" class="btn btn-primary" onclick="postUserSignin()">SignIn</button>
+    <section>
+        <div class="add-post-wrap">
+            <div class="add-post">
+                <ul>
+                    <li><p>작성자</p><input type="text" id="post-user"></li>
+                    <li><p>게시물 제목</p><input type="text" id="post-head"></li>
+                    <li><p>게시물 내용</p><textarea id="post-body"></textarea></li>
+                </ul>
+            </div>
+            <button type="button" class="btn" onclick="addPost()">게시물 등록</button>
+        </div>
     </section>
 </body>
 

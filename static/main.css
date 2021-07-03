@@ -48,7 +48,7 @@ header {
 }
 .btn a {
     text-decoration-line: none;
-    color: black;
+    color: white;
 }
 
 .btn a:hover{
@@ -67,3 +67,71 @@ header {
     width: 500px;
     margin: 50px auto;
 }
+.board {
+    width: 700px;
+    margin: 10px auto;
+    text-align: center;
+}
+
+.table-title {
+    color: coral;
+    font-size: 20px;
+}
+
+.post {
+    width: 100px;
+    margin: 20px;
+}
+.post-btn {
+    float: right;
+    margin: 10px;
+}
+
+.post-btn:hover {
+    color: cadetblue;
+}
+
+table.type07 {
+    border-collapse: collapse;
+    text-align: left;
+    line-height: 1.5;
+    border: 1px solid #ccc;
+    margin: 20px 10px;
+  }
+  table.type07 thead {
+    border-right: 1px solid #ccc;
+    border-left: 1px solid #ccc;
+    background: #e7708d;
+  }
+  table.type07 thead th {
+    padding: 10px;
+    font-weight: bold;
+    vertical-align: top;
+    color: #fff;
+  }
+  table.type07 tbody th {
+    padding: 10px;
+    font-weight: bold;
+    vertical-align: top;
+    border-bottom: 1px solid #ccc;
+    background: #fcf1f4;
+  }
+  table.type07 td {
+    width: 50px;
+    padding: 10px;
+    vertical-align: top;
+    border-bottom: 1px solid #ccc;
+  }
+  table.type07 .post-title {
+      width: 500px;
+  }
+  /* post-board */
+  .add-post-wrap {
+      width: 500px;
+      margin: 10px auto;
+      border: 2px solid black;
+  }
+
+  .add-post-wrap li {
+      margin: 10px;
+  }
