@@ -20,6 +20,18 @@ algorithm = 'HS256'
 
 @app.route('/')
 def home():
+    return render_template('index.html')
+
+@app.route('/board')
+def board():
+    return render_template('board.html')
+
+@app.route('/signup')
+def page_signup():
+    return render_template('signup.html')
+
+@app.route('/signin')
+def page_singin():
     return render_template('signin.html')
 
 @app.route('/user/signup', methods=["POST"])
@@ -27,10 +39,10 @@ def sign_up():
     user_id = request.form['userId']
     user_pw = request.form['userPw']
     pw_hash = bcrypt.generate_password_hash(user_pw)
-    find_user = db.users.find_one({'user_id' : user_id})
+    find_user = db.users.find_one({'userId' : user_id})
 
     if find_user is not None:
-        return jsonify({'result': 'exist_userId'})
+        return render_template('signin.html')
 
     db.users.insert_one({'userId' : user_id, 'userPw': pw_hash})
     return jsonify({'result': 'success'})
