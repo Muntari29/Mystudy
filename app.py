@@ -2,6 +2,8 @@ from flask import Flask, render_template, request
 from flask.json import jsonify
 from pymongo import MongoClient
 from flask_bcrypt import Bcrypt
+from datetime import datetime, timedelta
+import jwt
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'muntari'
@@ -11,6 +13,10 @@ bcrypt = Bcrypt(app)
 
 client = MongoClient('localhost', 27017)
 db = client.dbjungle
+
+#jwt
+app.config['JWT_SECRET_KEY'] = 'my_secrct_key'
+algorithm = 'HS256'
 
 @app.route('/')
 def home():
@@ -40,7 +46,16 @@ def sign_in():
 
     find_pw = find_user['userPw']
     if bcrypt.check_password_hash(find_pw, user_pw):
-        return jsonify({'result' : 'success'})
+        payload = {
+            "user_id": user_id,
+            "exp" : datetime.now() + timedelta(hours=2)
+        }
+        access_token = jwt.encode(payload, app.config['JWT_SECRET_KEY'], algorithm)
+        print(access_token)
+        return jsonify({
+            'result' : 'success',
+            'access_token' : access_token
+            })
     return jsonify({'result': 'Not correct'})
 
 
