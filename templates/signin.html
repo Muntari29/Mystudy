@@ -27,7 +27,8 @@
                 },
                 success:function(response){
                     if (response['result'] == 'success'){
-                        alert('ok')
+                        localStorage.setItem('token', response['access_token'])
+                        alert('Storage_token_Save!!');
                     } else {
                         alert('no ok')
                     }
@@ -41,7 +42,7 @@
         <div class="header-group clearfix">
             <div class="category float--left">
                 <ul class="main-menu">
-                    <li><a href="localhost:5000/">home</a></li>
+                    <li><a href="127.0.0.0:5000/">home</a></li>
                     <li><a href="localhost:5000/board" >board</a></li>
                 </ul>
             </div>
