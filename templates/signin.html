@@ -29,6 +29,8 @@
                     if (response['result'] == 'success'){
                         localStorage.setItem('token', response['access_token'])
                         alert('Storage_token_Save!!');
+                        // 로그인 완료 시 홈 화면으로 전환
+                        window.location.href = '/';
                     } else {
                         alert('no ok')
                     }
@@ -42,13 +44,13 @@
         <div class="header-group clearfix">
             <div class="category float--left">
                 <ul class="main-menu">
-                    <li><a href="127.0.0.0:5000/">home</a></li>
-                    <li><a href="localhost:5000/board" >board</a></li>
+                    <li><a href="/">home</a></li>
+                    <li><a href="board">board</a></li>
                 </ul>
             </div>
             <div class="sign-box float--right">
-                <button type="button" class="btn"><a href="localhost:5000/user/signup">SignUp</a></button>
-                <button type="button" class="btn"><a href="localhost:5000/user/signin">SignIn</a></button>
+                <button type="button" class="btn"><a href="signup">SignUp</a></button>
+                <button type="button" class="btn"><a href="signin">SignIn</a></button>
             </div>
         </div>
     </header>
