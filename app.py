@@ -91,17 +91,18 @@ def show_post():
     #     'result' : 'success',
     #     'post_list' : post_list
     #     })
-    page = int(request.args.get('offset', 1))
-    per_page = int(request.args.get('limit', 5))
-    # post_list = list(db.posts.find({}, {'_id' : False}).skip(per_page * (page-1)).limit(per_page))
-    post_list = list(db.posts.find({}, {'_id' : False}).skip(page-1).limit(5))
+    offset = int(request.args.get('offset'))
+    limit = int(request.args.get('limit'))
 
-    print(f'off : {page}')
-    print(f'lim : {per_page}')
-    print(post_list)
+    #limit 5로 고정
+    post_list = list(db.posts.find({}, {'_id' : False}).skip(offset-1).limit(5))
+    next_url = '/board/show?offset=' + str(limit+1) + '&limit=' + str(limit + 5)
+    prev_url = '/board/show?offset=' + str(offset-5) + '&limit=' + str(limit - 5)
     return jsonify({
         'result' : 'success',
-        'post_list' : post_list
+        'post_list' : post_list,
+        'next_url' : next_url,
+        'prev_url' : prev_url
         })
 
 @app.route('/board/list/' , methods =["GET"])

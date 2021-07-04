@@ -109,26 +109,19 @@
             </div>
         </div>
     </header>
-    <section class="title">
-        <p>여기는 게시판 화면입니당!!</p>
-    </section>
-    <section class="board">
-        <p class="table-title">자유 게시판</p>
-        <div class="post">
-            <button type="button" class="btn btn-primary" onclick="pushPostBtn()">글쓰기</button>
-        </div>
-        <table class="type07">
+    <section class="section-table">
+        <table class="table table-bordered">
             <thead>
                 <tr>
-                    <th scope="cols">No</th>
-                    <th scope="cols" class="post-title">제목</th>
-                    <th scope="cols">작성자</th>
-                    <th scope="cols">작성시간</th>
-                    <th scope="cols">추천수</th>
+                    <td class="table-no">No</td>
+                    <td class="table-title">제목</td>
+                    <td class="table-user">작성자</td>
+                    <td class="table-time">작성시간</td>
+                    <td class="table-list">추천수</td>
                 </tr>
             </thead>
             <tbody id="pivot">
-                <!-- 추가되어 입력되는 부분 -->
+                <!-- 입력되는 부분 -->
             </tbody>
         </table>
         <nav aria-label="Page navigation example">
@@ -136,7 +129,7 @@
               <li class="page-item disabled">
                 <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
               </li>
-              <li class="page-item"><a class="page-link" href="board">1</a></li>
+              <li class="page-item"><a class="page-link" href="board">1</a></li> <!-- 1, 5-->
               <li class="page-item"><a class="page-link" href="#" onclick="showPagination(6, 10)">2</a></li>
               <li class="page-item"><a class="page-link" href="#" onclick="showPagination(11, 15)">3</a></li>
               <li class="page-item"><a class="page-link" href="#" onclick="showPagination(16, 20)">4</a></li>
@@ -145,6 +138,7 @@
               </li>
             </ul>
           </nav>
+
     </section>
 </body>
 
