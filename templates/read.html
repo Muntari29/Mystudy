@@ -32,7 +32,7 @@
 
         function postDetail(){
             let title = getParam('title');
-            console.log(`TT : ${title}`)
+            console.log(`TT : ${title}, type : ${typeof(title)}`)
             $.ajax({
                 type: 'GET',
                 url: `/board/read/get?title=${title}`,

@@ -8,7 +8,7 @@ function pushPostBtn() {
 }
 
 function showPost(userId, title, postBody){
-    console.log(`ID : ${userId}, ti : ${title}, bod: ${postBody}}`)
+    console.log(typeof(userId), userId);
     let postForm = {
         'title' : title,
         'postBody' : postBody
@@ -38,7 +38,7 @@ function showBoard() {
                     console.log(`showBOARD : userId ${userId}, title ${title}, body ${postBody}`)
                     let postHtml = `<tr>
                                         <th scope="row" class="post-no">${no}</th>
-                                        <td class="post-title"><a href="#" onclick="showPost(${userId}, ${title}, ${postBody})">${title}</a></td>
+                                        <td class="post-title"><a href="#" onclick="showPost('${userId}', '${title}', '${postBody}')">${title}</a></td>
                                         <td class="post-userId">${userId}</td>
                                         <td class="post-time">${time}</td>
                                         <td class="post-like">${like}</td>             
@@ -70,7 +70,7 @@ function showPagination(offset, limit) {
                     let userId = postList[i]['userId']
                     let postHtml = `<tr>
                                         <th scope="row" class="post-no">${no}</th>
-                                        <td class="post-title"><a href="#" onclick="showPost(${userId}, ${title}, ${postBody})">${title}</a></td>
+                                        <td class="post-title"><a href="#" onclick="showPost('${userId}', '${title}', '${postBody}')">${title}</a></td>
                                         <td class="post-userId">${userId}</td>
                                         <td class="post-time">${time}</td>
                                         <td class="post-like">${like}</td>             
