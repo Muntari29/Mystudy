@@ -128,5 +128,14 @@ def read_get():
         'result' : 'success',
         'post' : get_post})
 
+@app.route('/board/del', methods=['DELETE'])
+def del_post():
+    title = request.args.get('title')
+    user = request.args.get('user')
+    print(title, user)
+
+    # 우선 간단하게 지우는 로직
+    db.posts.delete_one({'postTitle' : title})
+    return jsonify({'result': 'success'})
 if __name__ == '__main__':
     app.run('0.0.0.0', port=5000, debug=True)

@@ -45,13 +45,13 @@
                         let postBody = getPost['postBody'];
                         let postHtml = `<ul>
                                             <li>
-                                                <p>작성자</p><p>${userId}</p>
+                                                <p>작성자</p><p class="get-user">${userId}</p>
                                             </li>
                                             <li>
-                                                <p>게시물 제목</p><p>${postTitle}</p>
+                                                <p>게시물 제목</p><p class="get-title">${postTitle}</p>
                                             </li>
                                             <li>
-                                                <p>게시물 내용</p><p>${postBody}</p>
+                                                <p>게시물 내용</p><p class="get-body">${postBody}</p>
                                             </li>
                                         </ul>`;
                         $('.get-post').append(postHtml);
@@ -60,6 +60,30 @@
                     }
                 }
             })
+        }
+
+        function backList(){
+            history.back();
+        }
+
+        function delPost(){
+            let user = $('.get-user').text();
+            let postTitle = $('.get-title').text();
+            console.log(user, postTitle);
+            $.ajax({
+                type: 'DELETE',
+                url: `/board/del?title=${postTitle}&user=${user}`,
+                data: {},
+                success:function(response){
+                    if (response['result'] == 'success'){
+                        alert('삭제');
+                        backList();
+                    } else {
+                        alert('삭제실패!');
+                    }
+                }
+            })
+
         }
     </script>
 </head>
@@ -89,7 +113,9 @@
             <div class="get-post">
                 <!-- 추가되는 부분 -->
             </div>
-            <button type="button" class="btn btn-primary" onclick="addPost()">게시물 등록</button>
+            <button type="button" class="btn btn-primary" onclick="backList()">목록으로</button>
+            <button type="button" class="btn btn-primary">게시물 수정</button>
+            <button type="button" class="btn btn-primary" onclick="delPost()">게시물 삭제</button>
         </div>
     </section>
 </body>
