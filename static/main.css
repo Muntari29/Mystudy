@@ -46,6 +46,11 @@ header {
 .sign-box {
     margin: 10px;
 }
+
+#log-out {
+    display: none;
+}
+
 .btn a {
     text-decoration-line: none;
     color: white;

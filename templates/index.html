@@ -19,6 +19,7 @@
         crossorigin="anonymous"></script>
     <script src="../static/main.js"></script>
 </head>
+
 <body>
     <header>
         <div class="header-group clearfix">
@@ -29,10 +30,13 @@
                 </ul>
             </div>
             <div class="sign-box float--right">
-                <button type="button" class="btn btn-primary" data-toggle="modal"
-                    data-target="#SignUpModal">SignUp</a></button>
-                <button type="button" class="btn btn-primary" data-toggle="modal"
-                    data-target="#SignInModal">SignIn</a></button>
+                <div id="log-in">
+                    <button type="button" class="btn btn-primary" data-toggle="modal"
+                        data-target="#SignUpModal">SignUp</a></button>
+                    <button type="button" class="btn btn-primary" data-toggle="modal"
+                        data-target="#SignInModal">SignIn</a></button>
+                </div>
+                <button type="button" id="log-out" class="btn btn-primary" onclick="logOut()">Logout</a></button>
             </div>
         </div>
     </header>
@@ -116,4 +120,5 @@
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
+
 </html>
