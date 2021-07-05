@@ -13,85 +13,12 @@
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
         integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
         crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
         crossorigin="anonymous"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-
-    <script>
-        $(document).ready(function () {
-            console.log('onload')
-            showBoard();
-        })
-
-        function pushPostBtn() {
-            window.location.href = 'post_board';
-        }
-
-        function showBoard() {
-            $.ajax({
-                type: 'GET',
-                url: '/board/show?offset=1&limit=5',
-                data: {},
-                success: function (response) {
-                    if (response['result'] == 'success') {
-                        let postList = response['post_list'];
-                        console.log(postList);
-                        for (let i = 0; i < postList.length; i++) {
-                            let no = i + 1
-                            let title = postList[i]['postTitle']
-                            let postBody = postList[i]['postBody']
-                            let like = postList[i]['like']
-                            let time = postList[i]['time']
-                            let userId = postList[i]['userId']
-                            let postHtml = `<tr>
-                                                <th scope="row">${no}</th>
-                                                <td class="post-title">${title}</td>
-                                                <td>${userId}</td>
-                                                <td>${time}</td>
-                                                <td>${like}</td>             
-                                            </tr>`
-                            $('#pivot').append(postHtml);
-                        }
-                    } else {
-                        console.log('no nono');
-                    }
-                }
-            })
-        }
-
-        function showPagination(offset, limit) {
-            $('#pivot').empty();
-            $.ajax({
-                type: 'GET',
-                url: `/board/show?offset=${offset}&limit=${limit}`,
-                data: {},
-                success: function (response) {
-                    if (response['result'] == 'success') {
-                        let postList = response['post_list'];
-                        for (let i = 0; i < postList.length; i++) {
-                            let no = offset + i
-                            let title = postList[i]['postTitle']
-                            let postBody = postList[i]['postBody']
-                            let like = postList[i]['like']
-                            let time = postList[i]['time']
-                            let userId = postList[i]['userId']
-                            let postHtml = `<tr>
-                                                <th scope="row">${no}</th>
-                                                <td class="post-title">${title}</td>
-                                                <td>${userId}</td>
-                                                <td>${time}</td>
-                                                <td>${like}</td>             
-                                            </tr>`
-                            $('#pivot').append(postHtml);
-                        }
-                    } else {
-                        console.log('no nono');
-                    }
-                }
-            })
-        }
-    </script>
+    <script src="../static/board.js"></script>
+    <script src="../static/main.js"></script>
 </head>
 
 <body>
@@ -104,8 +31,10 @@
                 </ul>
             </div>
             <div class="sign-box float--right">
-                <button type="button" class="btn btn-primary"><a href="signup">SignUp</a></button>
-                <button type="button" class="btn btn-primary"><a href="signin">SignIn</a></button>
+                <button type="button" class="btn btn-primary" data-toggle="modal"
+                    data-target="#SignUpModal">SignUp</a></button>
+                <button type="button" class="btn btn-primary" data-toggle="modal"
+                    data-target="#SignInModal">SignIn</a></button>
             </div>
         </div>
     </header>
@@ -138,8 +67,86 @@
               </li>
             </ul>
           </nav>
-
+          <div>
+            <button type="button" class="btn btn-primary"><a href="post_board">글쓰기</a></button>
+        </div>
     </section>
 </body>
+<!-- 회원가입 모달 -->
+<div class="modal fade" id="SignUpModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Sign Up</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-horizontal">
+                    <div class="form-group">
+                        <label for="inputEmail3" class="col-sm-2 control-label">아이디</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="signup-id" placeholder="아이디를 입력하세요">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputPassword3" class="col-sm-2 control-label">비밀번호</label>
+                        <div class="col-sm-10">
+                            <input type="password" class="form-control" id="signup-pw" placeholder="비밀번호를 입력하세요">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputPassword3" class="col-sm-2 control-label">비밀번호 확인</label>
+                        <div class="col-sm-10">
+                            <input type="password" class="form-control" id="signup-pw-2" placeholder="비밀번호를 입력하세요">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-10">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" onclick="userSignup()">SignUp</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+<!-- 로그인 모달 -->
+<div class="modal fade" id="SignInModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Sign In</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-horizontal">
+                    <div class="form-group">
+                        <label for="inputEmail3" class="col-sm-2 control-label">아이디</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="signin-id" placeholder="아이디를 입력하세요">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputPassword3" class="col-sm-2 control-label">비밀번호</label>
+                        <div class="col-sm-10">
+                            <input type="password" class="form-control" id="signin-pw" placeholder="비밀번호를 입력하세요">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-10">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" onclick="userSignin()">Sign In</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
 
 </html>

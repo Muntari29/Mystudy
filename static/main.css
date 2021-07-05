@@ -90,16 +90,21 @@ header {
 .post-btn:hover {
     color: cadetblue;
 }
-  /* post-board */
-  .add-post-wrap {
-      width: 500px;
-      margin: 10px auto;
-      border: 2px solid black;
-  }
+/* post-board */
+.add-post-wrap {
+    width: 500px;
+    margin: 10px auto;
+    border: 2px solid black;
+}
 
-  .add-post-wrap li {
-      margin: 10px;
-  }
+#post-body {
+    width: 300px;
+    height: 300px;
+}
+
+.add-post-wrap li {
+    margin: 10px;
+}
 
 .section-table {
     width: 980px;
