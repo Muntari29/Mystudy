@@ -1,5 +1,6 @@
 $(document).ready(function () {
     console.log('onload');
+    console.log('main.js');
 })
 
 function userSignup() {

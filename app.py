@@ -29,10 +29,13 @@ def home():
 def board():
     return render_template('board.html')
 
-
 @app.route('/post_board')
 def post_board():
     return render_template('post_board.html')
+
+@app.route('/board/read')
+def read_post():
+    return render_template('read.html')
 
 @app.route('/user/signup', methods=["POST"])
 def sign_up():
@@ -107,6 +110,23 @@ def show_post():
         'next_url': next_url,
         'prev_url': prev_url
     })
+
+@app.route('/board/read/get', methods=['GET'])
+def read_get():
+    print('==============111111')
+    title = request.args.get('title', None)
+    print(title)
+    if title is None:
+        return jsonify({'result' : 'Fail'})
+
+    get_post = db.posts.find_one({'postTitle' : title}, {'_id' : False})
+
+    if get_post is None:
+        return jsonify({'result' : 'Fail'})
+    
+    return jsonify({
+        'result' : 'success',
+        'post' : get_post})
 
 if __name__ == '__main__':
     app.run('0.0.0.0', port=5000, debug=True)

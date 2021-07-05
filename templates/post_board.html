@@ -13,11 +13,10 @@
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
         integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
         crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
         crossorigin="anonymous"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-
     <script src="../static/main.js"></script>
 </head>
 
@@ -45,9 +44,15 @@
         <div class="add-post-wrap">
             <div class="add-post">
                 <ul>
-                    <li><p>작성자</p><input type="text" id="post-user"></li>
-                    <li><p>게시물 제목</p><input type="text" id="post-head"></li>
-                    <li><p>게시물 내용</p><textarea id="post-body"></textarea></li>
+                    <li>
+                        <p>작성자</p><input type="text" id="post-user">
+                    </li>
+                    <li>
+                        <p>게시물 제목</p><input type="text" id="post-head">
+                    </li>
+                    <li>
+                        <p>게시물 내용</p><textarea id="post-body"></textarea>
+                    </li>
                 </ul>
             </div>
             <button type="button" class="btn btn-primary" onclick="addPost()">게시물 등록</button>
@@ -130,4 +135,5 @@
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
+
 </html>
