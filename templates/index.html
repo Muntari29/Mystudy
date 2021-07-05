@@ -17,64 +17,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
         crossorigin="anonymous"></script>
-    <script>
-        $(document).ready(function () {
-            console.log('onload');
-        })
-
-        function userSignup() {
-            let userId = $('#signup-id').val();
-            let userPw = $('#signup-pw').val();
-            let userPw2 = $('#signup-pw-2').val();
-
-            if (userPw != userPw2) {
-                return alert('비밀번호가 일치하지 않습니다.');
-            }
-            console.log(userId, userPw)
-            $.ajax({
-                type: 'POST',
-                url: '/user/signup',
-                data: {
-                    'userId': userId,
-                    'userPw': userPw
-                },
-                success: function (response) {
-                    if (response['result'] == 'success') {
-                        alert('SignUp Success');
-                        // 완료후 모달 창 닫음.
-                        $('#SignUpModal').modal('hide');
-                    } else {
-                        // 회원가입시 실패(아이디가 존재하는 경우) 로그인 페이지로 전환
-                        alert('Exist_User');
-                    }
-                }
-            })
-        }
-
-        function userSignin(){
-            let userId = $('#signin-id').val();
-            let userPw = $('#signin-pw').val();
-            $.ajax({
-                type: 'POST',
-                url: '/user/signin',
-                data: {
-                    'userId' : userId,
-                    'userPw' : userPw
-                },
-                success:function(response){
-                    if (response['result'] == 'success'){
-                        localStorage.setItem('token', response['access_token'])
-                        alert('Storage_token_Save!!');
-                        // 완료후 모달 창 닫음.
-                        // 모달 메소드가 작동하지 않을 경우 제이쿼리스크립트를 먼저 불러온 후 부트스트램을 불러와야함
-                        $('#SignInModal').modal('hide');
-                    } else {
-                        alert('no ok')
-                    }
-                }
-            })
-        }
-    </script>
+    <script src="../static/main.js"></script>
 </head>
 <body>
     <header>
