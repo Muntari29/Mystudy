@@ -1,6 +1,7 @@
 $(document).ready(function () {
     console.log('onload');
     console.log('main.js');
+    loginCheck();
 })
 
 function userSignup() {
@@ -51,6 +52,7 @@ function userSignin(){
                 // 완료후 모달 창 닫음.
                 // 모달 메소드가 작동하지 않을 경우 제이쿼리스크립트를 먼저 불러온 후 부트스트램을 불러와야함
                 $('#SignInModal').modal('hide');
+                window.location.reload();
             } else {
                 alert('no ok')
             }
@@ -91,4 +93,21 @@ function updatePost(){
     let access_token = sessionStorage.getItem("token");
     console.log(access_token);
 
+}
+
+function loginCheck(){
+    let status = sessionStorage.getItem('token');
+    // 로그인 체크하기에 따라 디자인 on/off
+    if (status !== null){
+        $('#log-in').hide();
+        $('#log-out').show();
+    } else {
+        $('#log-in').show();
+        $('#log-out').hide();
+    }
+}
+
+function logOut(){
+    sessionStorage.removeItem('token');
+    window.location.reload();
 }

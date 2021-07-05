@@ -1,6 +1,8 @@
 $(document).ready(function () {
     console.log('onload')
+    loginCheck();
     showBoard();
+    
 })
 
 function pushPostBtn() {
