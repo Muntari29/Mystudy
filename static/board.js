@@ -7,41 +7,16 @@ function pushPostBtn() {
     window.location.href = 'post_board';
 }
 
-function showPost(no, title, postBody){
+function showPost(userId, title, postBody){
+    console.log(`ID : ${userId}, ti : ${title}, bod: ${postBody}}`)
     let postForm = {
         'title' : title,
         'postBody' : postBody
     }
-    localStorage.setItem(no, postForm);
+    localStorage.setItem(userId, JSON.stringify(postForm));
     alert('storage save done');
-    window.location.href = `/board/read?no=${no}`;
+    window.location.href = `/board/read?title=${title}`;
 }
-// function showPost(title) {
-//     console.log('showpost');
-//     console.log(`t: ${title}}`);
-//     $.ajax({
-//         type: 'GET',
-//         url: `/board/read?title=${title}`,
-//         data: {},
-//         success:function(response) {
-//             if(response['result'] == 'success'){
-//                 let post = response['post'];
-//                 let postUser = post['userId'];
-//                 let postTitle = post['postTitle'];
-//                 let postBody = post['postBody'];
-//                 let postHtml = `<ul>
-//                                     <li><p>작성자 : ${postUser}</p></li>
-//                                     <li><p>게시물 제목</p><input type="text" id="post-head" placeholder=${postTitle}></li>
-//                                     <li><p>게시물 내용</p><textarea id="post-body" placeholder=${postBody}></textarea></li>
-//                                 </ul>`
-//                 $('#read-post').append(postHtml);
-//                 location.replace(`/board/read/${title}`)
-//             } else {
-//                 alert('NOT OK');
-//             }
-//         }
-//     })
-// }
 
 function showBoard() {
     console.log('showboard')
@@ -60,9 +35,10 @@ function showBoard() {
                     let like = postList[i]['like']
                     let time = postList[i]['time']
                     let userId = postList[i]['userId']
+                    console.log(`showBOARD : userId ${userId}, title ${title}, body ${postBody}`)
                     let postHtml = `<tr>
                                         <th scope="row" class="post-no">${no}</th>
-                                        <td class="post-title"><a href="#" onclick="showPost(${no}, ${title}, ${postBody})">${title}</a></td>
+                                        <td class="post-title"><a href="#" onclick="showPost(${userId}, ${title}, ${postBody})">${title}</a></td>
                                         <td class="post-userId">${userId}</td>
                                         <td class="post-time">${time}</td>
                                         <td class="post-like">${like}</td>             
@@ -94,7 +70,7 @@ function showPagination(offset, limit) {
                     let userId = postList[i]['userId']
                     let postHtml = `<tr>
                                         <th scope="row" class="post-no">${no}</th>
-                                        <td class="post-title"><a href="#" onclick="showPost(${title})">${title}</a></td>
+                                        <td class="post-title"><a href="#" onclick="showPost(${userId}, ${title}, ${postBody})">${title}</a></td>
                                         <td class="post-userId">${userId}</td>
                                         <td class="post-time">${time}</td>
                                         <td class="post-like">${like}</td>             
