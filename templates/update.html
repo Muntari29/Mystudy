@@ -48,15 +48,17 @@
         function showUpdatePost(){
             let data = sessionStorageData();
             let userId = data['userId'];
+            let postTitle = data['postTitle'];
+            let postBody = data['postBody'];
             let postHtml = `<ul>
                                 <li>
                                     <p>작성자</p><p id="post-user-id">${userId}</p>
                                 </li>
                                 <li>
-                                    <p>게시물 제목</p><input type="text" id="post-head">
+                                    <p>게시물 제목</p><input type="text" id="post-head" value="${postTitle}">
                                 </li>
                                 <li>
-                                    <p>게시물 내용</p><textarea id="post-body"></textarea>
+                                    <p>게시물 내용</p><textarea id="post-body">${postBody}</textarea>
                                 </li>
                             </ul>`
             $('.add-post').append(postHtml);
@@ -80,6 +82,7 @@
                 success:function(response){
                     if (response['result'] == 'success'){
                         alert('패치 성공!!')
+                        window.location.href ='/board';
                     } else {
                         alert('패치 실패!!')
                     }
