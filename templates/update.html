@@ -18,6 +18,77 @@
         integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
         crossorigin="anonymous"></script>
     <script src="../static/main.js"></script>
+    <script>
+        $(document).ready(function () {
+            console.log('onload');
+            console.log('update.html');
+            loginCheck();
+            showUpdatePost();
+        })
+
+        function getParam(key) {
+            return new URLSearchParams(location.search).get(key);
+        }
+
+        function sessionStorageData(){
+            // 현재 url의 제목을 기준으로 세션스토리지에서 필요한 아이디, 내용 등을 가져올 수 있음
+            let title = getParam('title')
+            let data = JSON.parse(sessionStorage.title);
+            console.log(`d : ${data}`)
+            console.log(`user : ${data.userId}, body : ${data.postBody}`);
+            let result = {
+                'userId' : data.userId,
+                'postTitle' : title,
+                'postBody' : data.postBody};
+            
+            console.log(result);
+            return result
+        }
+
+        function showUpdatePost(){
+            let data = sessionStorageData();
+            let userId = data['userId'];
+            let postHtml = `<ul>
+                                <li>
+                                    <p>작성자</p><p id="post-user-id">${userId}</p>
+                                </li>
+                                <li>
+                                    <p>게시물 제목</p><input type="text" id="post-head">
+                                </li>
+                                <li>
+                                    <p>게시물 내용</p><textarea id="post-body"></textarea>
+                                </li>
+                            </ul>`
+            $('.add-post').append(postHtml);
+        }
+
+        function pathcPost(){
+            let oldTitle = getParam('title')
+            let userId = $('#post-user-id').text();
+            let newTitle = $('#post-head').val();
+            let postBody = $('#post-body').val();
+            console.log(oldTitle, userId, newTitle, postBody);
+            $.ajax({
+                type: 'PATCH',
+                url: '/board/patch',
+                data: {
+                    'userId' : userId,
+                    'newTitle' : newTitle,
+                    'postBody' : postBody,
+                    'oldTitle' : oldTitle
+                },
+                success:function(response){
+                    if (response['result'] == 'success'){
+                        alert('패치 성공!!')
+                    } else {
+                        alert('패치 실패!!')
+                    }
+                } 
+            })
+        }
+
+
+    </script>
 </head>
 
 <body>
@@ -46,19 +117,9 @@
     <section>
         <div class="add-post-wrap">
             <div class="add-post">
-                <ul>
-                    <li>
-                        <p>작성자</p><input type="text" id="post-user">
-                    </li>
-                    <li>
-                        <p>게시물 제목</p><input type="text" id="post-head">
-                    </li>
-                    <li>
-                        <p>게시물 내용</p><textarea id="post-body"></textarea>
-                    </li>
-                </ul>
+                <!-- 추가 입력 부분-->
             </div>
-            <button type="button" class="btn btn-primary" onclick="addPost()">게시물 등록</button>
+            <button type="button" class="btn btn-primary" onclick="pathcPost()">게시물 수정하기</button>
         </div>
     </section>
 </body>

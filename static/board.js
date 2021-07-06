@@ -12,10 +12,10 @@ function pushPostBtn() {
 function showPost(userId, title, postBody){
     console.log(typeof(userId), userId);
     let postForm = {
-        'title' : title,
+        'userId' : userId,
         'postBody' : postBody
     }
-    localStorage.setItem(userId, JSON.stringify(postForm));
+    sessionStorage.title = JSON.stringify(postForm);
     alert('storage save done');
     window.location.href = `/board/read?title=${title}`;
 }

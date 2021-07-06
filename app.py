@@ -37,6 +37,10 @@ def post_board():
 def read_post():
     return render_template('read.html')
 
+@app.route('/board/update')
+def update_post():
+    return render_template('update.html')
+
 @app.route('/user/signup', methods=["POST"])
 def sign_up():
     user_id = request.form['userId']
@@ -128,6 +132,27 @@ def read_get():
         'result' : 'success',
         'post' : get_post})
 
+@app.route('/board/patch', methods=['PATCH'])
+def patch_post():
+    old_title = request.form['oldTitle']
+    user_id = request.form['userId']
+    new_title = request.form['newTitle']
+    new_body = request.form['postBody']
+    print(f'old : {old_title}, new : {new_title}, user : {user_id}, body : {new_body}')
+
+    #이전 제목으로 값을 찾음
+    get_post = db.posts.find_one({'postTitle' : old_title},{'-id' : False})
+
+    if get_post is None:
+        return jsonify({'result' : '일치하는 게시물이 없음'})
+    
+    db.posts.update_one({'postTitle' : old_title}, {'$set' : {
+        'postTitle' : new_title,
+        'postBody' : new_body,
+    }})
+
+    return jsonify({'result' : 'success'})
+    
 @app.route('/board/del', methods=['DELETE'])
 def del_post():
     title = request.args.get('title')
