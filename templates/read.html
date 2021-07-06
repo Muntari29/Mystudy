@@ -85,84 +85,10 @@
             })
         }
 
-        // function updatePost() {
-            // 먼저 제목으로 해당 포스트를 찾아오자
-            // let title = getParam('title');
-            // $.ajax({
-            //     type: 'GET',
-            //     url: `/board/read/get?title=${title}`,
-            //     data: {},
-            //     success: function (response) {
-            //         if (response['result'] == 'success') {
-            //             let getPost = response['post'];
-            //             let userId = getPost['userId'];
-            //             let postTitle = getPost['postTitle'];
-            //             let postBody = getPost['postBody'];
-            //             let postHtml = `<ul>
-            //                                 <li>
-            //                                     <p>작성자</p><p class="get-user">${userId}</p>
-            //                                 </li>
-            //                                 <li>
-            //                                     <p>게시물 제목</p><input ${postTitle}
-            //                                 </li>
-            //                                 <li>
-            //                                     <p>게시물 내용</p><p class="get-body">${postBody}</p>
-            //                                 </li>
-            //                             </ul>`;
-            //             $('.get-post').append(postHtml);
-            //         } else {
-            //             alert('우선 실패');
-            //         }
-            //     }
-            // })
-            // window.location.href = '/board/update';
-        // }
-        // function updatePost() {
-        //     let status = $('#update-post').text();
-        //     if (status == '게시물 수정') {
-        //         let user = $('.get-user').text();
-        //         let postTitle = $('.get-title').text();
-        //         let postBody = $('.get-body').text();
-        //         console.log(postTitle, postBody, user);
-        //         $('.get-post').empty();
-        //         let postHtml = `<ul>
-        //                         <li>
-        //                             <p>작성자</p><p class="get-user">${user}</p>
-        //                         </li>
-        //                         <li>
-        //                             <p>게시물 제목</p><input type="text" id="post-head" value="${postTitle}">
-        //                         </li>
-        //                         <li>
-        //                             <p>게시물 내용</p><textarea id="post-body">${postBody}</textarea>
-        //                         </li>
-        //                     </ul>`;
-        //         $('.get-post').append(postHtml);
-        //         $('#update-post').text('게시물 등록');
-        //     } else {
-        //         let user = $('.get-user').text();
-        //         let postTitle = $('.get-title').val();
-        //         let postBody = $('.get-body').val();
-        //         // 변경하고자 하는 제목
-        //         let title = getParam('title');
-        //         console.log(`user : ${user}, tite : ${postTitle}, body : ${postBody}, oldtit : ${title}`);
-        //         $.ajax({
-        //             type: 'PATCH',
-        //             url: `/board/patch?title=${title}`,
-        //             data: {
-        //                 'user': user,
-        //                 'title': postTitle,
-        //                 'body': postBody
-        //             },
-        //             success: function (response) {
-        //                 if (response['result'] == 'success') {
-        //                     alert('일단 패치성공')
-        //                 } else {
-        //                     alert('일단실패')
-        //                 }
-        //             }
-        //         })
-        //     }
-        // }
+        function moveUpdate() {
+            let title = getParam('title');
+            window.location.href = `/board/update?title=${title}`
+        }
     </script>
 </head>
 
@@ -195,7 +121,7 @@
                 <!-- 추가되는 부분 -->
             </div>
             <button type="button" class="btn btn-primary" onclick="backList()">목록으로</button>
-            <button type="button" id="update-post" class="btn btn-primary">게시물 수정</button>
+            <button type="button" id="update-post" class="btn btn-primary" onclick="moveUpdate()">게시물 수정</button>
             <button type="button" class="btn btn-primary" onclick="delPost()">게시물 삭제</button>
         </div>
     </section>

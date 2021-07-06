@@ -141,7 +141,7 @@ def patch_post():
     print(f'old : {old_title}, new : {new_title}, user : {user_id}, body : {new_body}')
 
     #이전 제목으로 값을 찾음
-    get_post = db.posts.find_one({'postTitle' : old_title},{'-id' : False})
+    get_post = db.posts.find_one({'postTitle' : old_title},{'_id' : False})
 
     if get_post is None:
         return jsonify({'result' : '일치하는 게시물이 없음'})
